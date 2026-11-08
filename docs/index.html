@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather vs Humans: the part of Mumbai's smoke we chose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <link rel="stylesheet" href="hark-charts.css" />
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="nav glass" data-auto></header>
+      <main class="main">
+        <section class="hero">
+          <img class="hero__img" src="hero_wvh.png" alt="Mumbai skyline in winter haze at dusk, seen from Marine Drive" />
+          <div class="hero__copy">
+            <p class="hero__eyebrow">Weather vs Humans Mumbai · Google Mumbai Data Challenge</p>
+            <h1>Weather vs Humans: the part of Mumbai's smoke we chose</h1>
+            <p class="hero__sub">A weather-only AI model predicts what Mumbai's air should have been. The gap is us.</p>
+            <p class="hero__meta">By Aaryan Singh · Zindi: aaryan_thakur69 · Entry for the "Most Creative" prize</p>
+          </div>
+          <aside class="callout" aria-label="Next step">
+            <p class="callout__head"><span class="hark-mark" data-size="16"></span> Next step</p>
+            <p class="callout__lead">
+              <strong>Check, don't guess.</strong> Did a crackdown or a festival really change the air? Take the weather out and look.
+            </p>
+            <a class="btn" href="#crackdown">See the crackdown test</a>
+          </aside>
+          <p class="hero__credit">Photo: Marine Drive at dusk, winter haze</p>
+        </section>
+
+        <section class="stats">
+          <div class="stat">
+            <span class="stat__fig">−38 µg/m³</span
+            ><span class="stat__label">Drop in PM2.5 in the 12 days after the GRAP-4 crackdown (27 Nov 2025), while the weather-expected level stayed flat</span>
+          </div>
+          <div class="stat">
+            <span class="stat__fig">56 of 61</span
+            ><span class="stat__label">Shivaji Nagar's days over India's 60 µg/m³ daily limit that the weather alone would have kept under it</span>
+          </div>
+          <div class="stat">
+            <span class="stat__fig">~8 cigarettes</span
+            ><span class="stat__label">Extra smoke each person breathed over Diwali 2025, beyond what the weather explains</span>
+          </div>
+        </section>
+
+        <section class="section" id="intro">
+          <div class="prose">
+            <p>Mumbai can't control the wind, the sea breeze or the monsoon. This page separates the smoke the weather made from the smoke people made, so the city can see what it can actually fix.</p>
+          </div>
+        </section>
+
+        <section class="section" id="method" data-nav="Method">
+          <div class="head">
+            <p class="head__eyebrow">How it works</p>
+            <h2>Teach a model the weather, then see what it can't explain.</h2>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Pollution</p></div>
+              <div>
+                <h3>Hourly PM2.5 from three periods</h3>
+                <ul class="step__pills"><li><b>339,078</b> hourly readings</li><li>2019–2020, 2024, 2025–2026</li></ul>
+                <p>CPCB/MPCB, XKDR and OpenAQ stations: the challenge's own data and its extra history.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Weather</p></div>
+              <div>
+                <h3>Hourly weather for Mumbai</h3>
+                <p>From Open-Meteo/ERA5: wind speed and direction, boundary layer height (how high the air can mix), rain, temperature and humidity, plus their 6–240 hour histories and the land-breeze share.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Model</p></div>
+              <div>
+                <h3>LightGBM learns pollution from weather alone</h3>
+                <ul class="step__pills"><li>R² <b>0.57</b> city daily, unseen years</li><li>Leave-one-year-out</li></ul>
+                <p>It sees only weather, station and hour of day, never dates or festivals. Each year is predicted by a model that never saw that year.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">04</p><p class="step__eyebrow">The gap</p></div>
+              <div>
+                <h3>Actual minus weather-expected is the human-made extra</h3>
+                <p>A positive value means more smoke than the weather explains.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="crackdown" data-nav="Crackdown">
+          <div class="head">
+            <p class="head__eyebrow">Chapter 1 · The crackdown test</p>
+            <h2>After GRAP-4, the air cleared. The weather didn't change.</h2>
+            <p class="head__sub">Average of the 4 challenge stations, 12 days before vs 12 days after 27 Nov 2025.</p>
+          </div>
+          <div class="prose">
+            <p>On 27 Nov 2025 the BMC put GRAP-4 into effect and issued stop-work notices to construction sites, including in Malad West, Mazgaon, Chakala and Deonar (The Hindu, 15 Dec 2025; HT, 2 Dec 2025). GRAP-4 was revoked on 1 Dec 2025. The BMC credited both enforcement and better winds.</p>
+          </div>
+          <div class="pair">
+            <div class="breakdown">
+              <dl>
+                <div class="row"><dt>Actual PM2.5 <small>Before → after</small></dt><dd>100.8 → 62.9</dd></div>
+                <div class="row"><dt>Weather-expected <small>Essentially unchanged</small></dt><dd>47.4 → 47.9</dd></div>
+                <div class="row row--total"><dt>Actual change</dt><dd>−38 µg/m³</dd></div>
+              </dl>
+              <p class="fineprint">µg/m³. So the weather wasn't what cleared the air.</p>
+            </div>
+            <aside class="callout" aria-label="Placebo test">
+              <p class="callout__head">Placebo test</p>
+              <p class="callout__lead"><strong>None of 358 other windows dropped that much.</strong> We ran the same 12-day before/after test on every other winter window across all years.</p>
+              <p class="fineprint">Their 1st percentile was −23.9 µg/m³.</p>
+            </aside>
+          </div>
+          <figure class="chart">
+            <figcaption class="chart__cap">Every station fell after the crackdown; the weather-expected level barely moved<small>PM2.5, µg/m³, 12-day averages before and after 27 Nov 2025</small></figcaption>
+            <div class="chart__canvas chart__canvas--tall"><canvas id="crack" role="img" aria-label="Actual PM2.5 fell at all four stations after GRAP-4, most at Shivaji Nagar from 138.6 to 95.6, while weather-expected stayed near 44 to 50"></canvas></div>
+          </figure>
+          <script type="application/json" id="crack-data">
+            [
+              {"station":"Malad West","ab":92.5,"aa":53.9,"eb":47.6,"ea":47.8},
+              {"station":"Borivali East","ab":82.5,"aa":49.1,"eb":50.6,"ea":50.0},
+              {"station":"Shivaji Nagar","ab":138.6,"aa":95.6,"eb":44.5,"ea":43.5},
+              {"station":"Byculla","ab":72.4,"aa":61.9,"eb":45.8,"ea":48.3}
+            ]
+          </script>
+          <p class="fineprint">This is strong evidence, not proof. Other things also changed in those weeks.</p>
+        </section>
+
+        <section class="section" id="diwali" data-nav="Diwali">
+          <div class="head">
+            <p class="head__eyebrow">Chapter 2 · Three Diwalis</p>
+            <h2>The festival's extra smoke has grown each year we measured.</h2>
+            <p class="head__sub">Diwali day ±2 days. The extra is actual minus weather-expected, compared with the network's usual gap in the surrounding weeks.</p>
+          </div>
+          <figure class="chart">
+            <figcaption class="chart__cap">Actual PM2.5 ran well above the weather-expected level every Diwali<small>City average over the Diwali window, µg/m³</small></figcaption>
+            <div class="chart__canvas"><canvas id="diw" role="img" aria-label="Diwali actual vs weather-expected PM2.5: 2019 38.4 vs 14.8, 2024 78.9 vs 50.1, 2025 87.8 vs 35.3"></canvas></div>
+          </figure>
+          <script type="application/json" id="diw-data">
+            [{"year":"2019","actual":38.4,"expected":14.8},{"year":"2024","actual":78.9,"expected":50.1},{"year":"2025","actual":87.8,"expected":35.3}]
+          </script>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Diwali</th><th scope="col">Extra per day</th><th scope="col">Per person, window</th><th scope="col">Stations</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">2019 <small>27 Oct</small></th><td class="num">+7.1 µg/m³</td><td>~2 cigarettes</td><td class="muted">10</td></tr>
+                <tr><th scope="row">2024 <small>1 Nov</small></th><td class="num">+23.6 µg/m³</td><td>~5 cigarettes</td><td class="muted">About 25</td></tr>
+                <tr class="is-highlight"><th scope="row">2025 <small>Around 20–21 Oct</small></th><td class="num">+44.8 µg/m³</td><td>~8 cigarettes</td><td class="muted">4 · peak city day 21 Oct at 124.1 µg/m³</td></tr>
+                <tr><th scope="row">2026 <small>8 Nov</small><span class="chip">Coming</span></th><td class="muted">—</td><td class="muted">—</td><td class="muted">Added when the challenge data update lands on 10 Nov 2026</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="fineprint">Each year uses a different set of stations, so the trend is indicative.</p>
+        </section>
+
+        <section class="section" id="meter" data-nav="Meter">
+          <div class="head">
+            <p class="head__eyebrow">Chapter 3 · The human meter</p>
+            <h2>Since December 2025, the human gap has mostly closed.</h2>
+          </div>
+          <figure class="chart">
+            <figcaption class="chart__cap">Actual sat above weather-expected through most of 2025, then at or below it<small>Weekly PM2.5, city average of the 4 stations, µg/m³, Feb 2025 to Oct 2026</small></figcaption>
+            <div class="chart__canvas chart__canvas--tall"><canvas id="meter-chart" role="img" aria-label="Weekly actual PM2.5 ran above weather-expected through 2025, peaking at 103.1 in the GRAP-4 week, then mostly at or below it from December 2025 to October 2026"></canvas></div>
+          </figure>
+          <script type="text/csv" id="meter-data">
+date,actual,expected
+2025-02-23,49.4,41.3
+2025-03-02,62.2,44.2
+2025-03-09,60.0,40.5
+2025-03-16,60.0,42.2
+2025-03-23,33.0,32.5
+2025-03-30,33.8,26.6
+2025-04-06,39.5,33.4
+2025-04-13,28.5,31.5
+2025-04-20,15.6,19.3
+2025-04-27,21.8,22.4
+2025-05-04,21.9,22.5
+2025-05-11,20.0,16.3
+2025-05-18,23.2,16.2
+2025-05-25,27.6,21.1
+2025-06-01,18.8,13.5
+2025-06-08,21.7,16.3
+2025-06-15,15.9,14.1
+2025-06-22,14.0,12.2
+2025-06-29,14.6,12.9
+2025-07-06,14.8,11.7
+2025-07-13,16.0,12.0
+2025-07-20,14.4,12.2
+2025-07-27,13.4,11.4
+2025-08-03,15.3,12.2
+2025-08-10,14.2,14.3
+2025-08-17,12.5,13.4
+2025-08-24,14.9,10.9
+2025-08-31,16.1,12.3
+2025-09-07,18.0,12.1
+2025-09-14,21.8,14.7
+2025-09-21,16.0,13.8
+2025-09-28,18.7,13.1
+2025-10-05,15.9,12.4
+2025-10-12,39.2,29.9
+2025-10-19,70.9,46.3
+2025-10-26,55.1,27.5
+2025-11-02,20.6,13.6
+2025-11-09,47.2,35.7
+2025-11-16,85.6,49.6
+2025-11-23,103.1,47.2
+2025-11-30,84.7,48.1
+2025-12-07,63.8,46.7
+2025-12-14,48.6,45.1
+2025-12-21,45.4,44.9
+2025-12-28,43.9,44.8
+2026-01-04,55.6,53.9
+2026-01-11,58.0,59.6
+2026-01-25,47.0,64.5
+2026-02-01,45.7,53.4
+2026-02-08,57.0,57.9
+2026-02-15,50.0,62.3
+2026-02-22,53.0,59.5
+2026-03-01,23.6,38.3
+2026-03-08,45.6,48.4
+2026-03-15,38.1,45.0
+2026-03-22,23.1,33.7
+2026-03-29,31.7,37.1
+2026-04-05,15.5,22.7
+2026-04-12,29.4,25.0
+2026-04-19,28.0,28.5
+2026-04-26,29.2,32.7
+2026-05-03,22.1,21.4
+2026-05-10,29.8,24.7
+2026-05-17,20.0,21.3
+2026-05-24,13.6,19.2
+2026-05-31,14.4,16.4
+2026-06-07,15.4,17.9
+2026-06-14,18.3,14.7
+2026-06-21,13.6,17.6
+2026-06-28,12.1,17.5
+2026-07-05,10.8,11.2
+2026-07-12,15.2,15.2
+2026-07-19,14.7,15.8
+2026-07-26,12.1,12.2
+2026-08-02,14.1,14.6
+2026-08-09,13.8,14.7
+2026-08-16,13.5,14.4
+2026-08-23,11.9,16.1
+2026-08-30,14.7,15.2
+2026-09-06,11.1,15.3
+2026-09-13,11.2,16.5
+2026-09-20,15.1,16.7
+2026-09-27,21.3,19.2
+2026-10-04,26.3,44.0
+2026-10-11,42.6,52.4
+2026-10-18,51.0,58.5
+2026-10-25,58.0,57.6
+</script>
+          <div class="prose">
+            <p>Marked: the week of Diwali (21 Oct 2025) and the week GRAP-4 began (27 Nov 2025). Through most of 2025, actual sat above weather-expected. From December 2025 through October 2026, it mostly sat at or below.</p>
+            <p>That's a hopeful sign that the gains held, but not proof: sensor or model drift could also play a part.</p>
+          </div>
+        </section>
+
+        <section class="section" id="debt" data-nav="Breath debt">
+          <div class="head">
+            <p class="head__eyebrow">Breath debt · the human part</p>
+            <h2>Most bad-air days at every station were days people made.</h2>
+            <p class="head__sub">Per station, Feb 2025 to Oct 2026, about 20 months.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Station</th><th scope="col">Days pushed over the limit</th><th scope="col">Human-made extra</th></tr>
+              </thead>
+              <tbody>
+                <tr class="is-highlight"><th scope="row">Shivaji Nagar</th><td class="num">56 of 61</td><td>~218 cigarettes</td></tr>
+                <tr><th scope="row">Malad West</th><td class="num">38 of 46</td><td>~113 cigarettes</td></tr>
+                <tr><th scope="row">Borivali East</th><td class="num">50 of 56</td><td>~110 cigarettes</td></tr>
+                <tr><th scope="row">Byculla</th><td class="num">39 of 43</td><td>~97 cigarettes</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="fineprint">Days over India's 60 µg/m³ daily limit that the weather alone would have kept under it. Cigarettes use Berkeley Earth's rule of thumb: 22 µg/m³ for one day ≈ 1 cigarette, approximate.</p>
+          <aside class="callout" aria-label="What it means">
+            <p class="callout__lead"><strong>A baby born in Shivaji Nagar in February 2025 has breathed about 218 cigarettes' worth of smoke that the weather didn't make.</strong> That part was ours, so we can fix it.</p>
+          </aside>
+        </section>
+
+        <section class="section" id="new" data-nav="Why new">
+          <div class="head">
+            <h2>A different, everyday question, station by station.</h2>
+          </div>
+          <div class="prose">
+            <p>Mumbai already has forecasts (SAFAR, IITM's early warning system) and source-apportionment tools (IITM's Decision Support System). Researchers have "de-weathered" city-wide trends.</p>
+            <p>This page asks something else: did a policy or festival really change the air, once the weather is taken out? It also includes a placebo test anyone can rerun.</p>
+          </div>
+        </section>
+
+        <section class="section" id="limits" data-nav="Limits">
+          <div class="head">
+            <h2>What this can't tell you, honestly.</h2>
+          </div>
+          <div class="cards">
+            <div><h3>Few monitors</h3><p>Only 4 to 25 monitors per year, not ward level. The station networks differ by year.</p></div>
+            <div><h3>Noisy single days</h3><p>The model explains about 57% of daily city variation, so multi-day windows are more reliable than single days.</p></div>
+            <div><h3>One weather point</h3><p>The whole city shares a single weather location.</p></div>
+            <div><h3>Rough shorthand</h3><p>Cigarette equivalents are a rough public-health shorthand. Correlation isn't causation.</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="built" data-nav="Built with">
+          <div class="head">
+            <h2>Built with open tools and the challenge's data.</h2>
+          </div>
+          <div class="cards">
+            <div><h3>Tools</h3><ul><li>Python</li><li>LightGBM</li><li>Open-Meteo/ERA5 weather</li></ul></div>
+            <div><h3>Data</h3><p>Zindi Google Mumbai Data Challenge (CPCB/CAAQMS, OpenAQ, XKDR).</p></div>
+            <div><h3>Reproduce it</h3><p>A notebook for Google Colab. <span class="chip">Link coming</span></p></div>
+            <div><h3>Author</h3><p>Aaryan Singh <small>Zindi: aaryan_thakur69</small></p></div>
+          </div>
+        </section>
+      </main>
+      <footer class="foot">
+        <p>Weather vs Humans Mumbai · An entry for the Google Mumbai Data Challenge on Zindi, by Aaryan Singh.</p>
+        <nav aria-label="Back to sections" data-auto></nav>
+        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
+          ><span class="hark-mark"></span><span>built by hark</span></a
+        >
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+    <script src="chart.js"></script>
+    <script src="datalabels.js"></script>
+    <script src="hark-charts.js"></script>
+    <script>
+      (function () {
+        const ug = (v) => `${v} µg/m³`;
+        const c = Hark.data("crack-data");
+        new Chart(document.getElementById("crack"), {
+          type: "bar",
+          data: {
+            labels: c.map((d) => d.station),
+            datasets: [
+              { label: "Actual, before", data: c.map((d) => d.ab) },
+              { label: "Actual, after", data: c.map((d) => d.aa) },
+              { label: "Weather-expected, before", data: c.map((d) => d.eb) },
+              { label: "Weather-expected, after", data: c.map((d) => d.ea) },
+            ],
+          },
+          options: { plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ug(ctx.raw)}` } } } },
+        });
+
+        const d = Hark.data("diw-data");
+        new Chart(document.getElementById("diw"), {
+          type: "bar",
+          data: {
+            labels: d.map((r) => r.year),
+            datasets: [
+              { label: "Actual", data: d.map((r) => r.actual) },
+              { label: "Weather-expected", data: d.map((r) => r.expected) },
+            ],
+          },
+          options: { plugins: { datalabels: Hark.labels.values, tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ug(ctx.raw)}` } } } },
+        });
+
+        const m = Hark.data("meter-data");
+        const day0 = Date.parse("2025-02-23");
+        const toDays = (s) => Math.round((Date.parse(s) - day0) / 864e5);
+        const marks = { "2025-10-19": "Diwali", "2025-11-23": "GRAP-4" };
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const fmt = (days) => {
+          const dt = new Date(day0 + days * 864e5);
+          return `${months[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+        };
+        const fmtDay = (days) => {
+          const dt = new Date(day0 + days * 864e5);
+          return `Week of ${dt.getUTCDate()} ${months[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+        };
+        new Chart(document.getElementById("meter-chart"), {
+          type: "line",
+          data: {
+            datasets: [
+              {
+                label: "Actual",
+                data: m.map((r) => ({ x: toDays(r.date), y: r.actual })),
+                pointRadius: m.map((r) => (marks[r.date] ? 4 : 0)),
+              },
+              { label: "Weather-expected", data: m.map((r) => ({ x: toDays(r.date), y: r.expected })) },
+            ],
+          },
+          options: {
+            scales: {
+              x: { type: "linear", min: 0, max: toDays("2026-10-25"), ticks: { stepSize: 91, callback: (v) => fmt(v) } },
+              y: { ticks: { callback: (v) => `${v}` } },
+            },
+            plugins: {
+              datalabels: {
+                ...Hark.labels.points,
+                display: (ctx) => ctx.datasetIndex === 0 && !!marks[m[ctx.dataIndex].date],
+                formatter: (v, ctx) => marks[m[ctx.dataIndex].date],
+              },
+              tooltip: {
+                callbacks: {
+                  title: (items) => fmtDay(items[0].parsed.x),
+                  label: (ctx) => `${ctx.dataset.label}: ${ug(ctx.parsed.y)}`,
+                },
+              },
+            },
+          },
+        });
+      })();
+    </script>
+  </body>
+</html>
